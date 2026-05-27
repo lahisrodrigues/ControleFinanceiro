@@ -31,3 +31,13 @@ div {
     margin: 10px 0;
     padding: 10px;
 }
+
+.btn-receita {
+    background-color: green;
+    color: white;
+}
+
+.btn-despesa {
+    background-color: red;
+    color: white;
+}
