@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from database import Base, engine, SessionLocal
 from sqlalchemy import Column,Integer, String, Float
 from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
 
 # Este é o modelo que o Banco de Dados vai usar para criar a tabela
 class TransacaoDB(Base):
@@ -15,6 +16,14 @@ class TransacaoDB(Base):
 
 # Criamos a nossa aplicação financeira
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # O asterisco "*" significa "Permitir cartas de qualquer porta/site"
+    allow_credentials=True,
+    allow_methods=["*"], # Permite enviar (POST), ler (GET), deletar, etc.
+    allow_headers=["*"], # Permite qualquer formato de envelope (como o nosso JSON)
+)
 
 # Esta linha lê o modelo acima e cria o arquivo de banco de dados e a tabela automaticamente!
 Base.metadata.create_all(bind=engine)
