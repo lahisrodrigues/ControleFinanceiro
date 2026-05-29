@@ -57,7 +57,7 @@ def listar_transacoes(db: Session = Depends(get_db)):
     # 3. A sua lógica matemática perfeita roda em cima do que veio do banco:
     saldo = 0
     for transacao in dados_do_banco:
-        if transacao.tipo == "receita":
+        if transacao.tipo == "salario" or transacao.tipo == "adiantamento":
             saldo += transacao.valor
         else:
             saldo -= transacao.valor

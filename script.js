@@ -41,6 +41,20 @@ function carregarTransacoes(){
         .then(resposta => resposta.json())
         .then(dados => {
             console.log(dados)
+
+            const caixaReceitas = document.querySelector('.lista-receitas')
+            caixaReceitas.innerHTML = '<h4>Todas as Receitas</h4>'
+            const caixaDespesas = document.querySelector('.lista-despesas')
+            caixaDespesas.innerHTML = '<h4>Todas as Despesas</h4>'
+            dados.transacoes.forEach(item =>{
+            if(item.tipo === 'salario' || item.tipo === 'adiantamento'){
+                caixaReceitas.innerHTML += `<p>${item.descricao} : R$ ${item.valor}</p>`;
+            } else{
+                caixaDespesas.innerHTML += `<p>${item.descricao} : R$ ${item.valor}</p>`;
+            }
+});
+            const caixaTotal = document.querySelector('.barra-total')
+            caixaTotal.innerHTML = `<h2>Total Final: R$ ${dados.saldo_atual}</h2>`
         })
 }
 carregarTransacoes();
