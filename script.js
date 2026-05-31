@@ -1,6 +1,12 @@
 const caixaVerde = document.querySelector('.btn-receita')
 
 caixaVerde.addEventListener('click', function(){
+    const descricaodigitada = document.querySelector('#input-descricao'). value;
+    if (descricaodigitada === ''){
+        alert('Digite a descrição, campo obrigatório!')
+        return
+    }
+        
     fetch("http://127.0.0.1:8000/transacoes", {
         method:"POST",
         headers: {
