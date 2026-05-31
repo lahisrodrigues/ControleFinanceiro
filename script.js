@@ -18,11 +18,19 @@ caixaVerde.addEventListener('click', function(){
             tipo: document.querySelector('#input-categoria').value
         })
     })
+    document.querySelector('#input-descricao').value = '';
+    document.querySelector('#input-valor').value = '';
 })
 
 const caixaVermelha = document.querySelector('.btn-despesa')
 
 caixaVermelha.addEventListener('click', function(){
+    const descricaodigitada = document.querySelector('#input-descricao'). value;
+    if (descricaodigitada === ''){
+        alert('Digite a descrição, campo obrigatório!')
+        return
+    }    
+
     fetch("http://127.0.0.1:8000/transacoes", {
         method:"POST",
         headers: {
@@ -34,6 +42,8 @@ caixaVermelha.addEventListener('click', function(){
             tipo: document.querySelector('#input-categoria').value
         })
     })
+    document.querySelector('#input-descricao').value = '';
+    document.querySelector('#input-valor').value = '';
 })
 
 // Limpando as caixinhas após o envio
