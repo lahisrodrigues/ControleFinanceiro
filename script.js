@@ -73,7 +73,11 @@ function carregarTransacoes(){
             }
 });
             const caixaTotal = document.querySelector('.barra-total')
-            caixaTotal.innerHTML = `<h2>Total Final: R$ ${dados.saldo_atual}</h2>`
+            let corDaLetra = 'green';
+            if (dados.saldo_atual < 0){
+                corDaLetra = 'red';
+            }
+            caixaTotal.innerHTML = `<h2 style="color: ${corDaLetra}">Total Final: ${dados.saldo_atual.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</h2>`
         })
 }
 carregarTransacoes();
