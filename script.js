@@ -67,9 +67,9 @@ function carregarTransacoes(){
             caixaDespesas.innerHTML = '<h4>Todas as Despesas</h4>'
             dados.transacoes.forEach(item =>{
             if(item.tipo === 'salario' || item.tipo === 'adiantamento'){
-                caixaReceitas.innerHTML += `<p>${item.descricao} : R$ ${item.valor}</p>`;
+                caixaReceitas.innerHTML += `<p>${item.descricao} : ${item.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} <button onclick="deletarTransacao(${item.id})">❌</button></p>`;
             } else{
-                caixaDespesas.innerHTML += `<p>${item.descricao} : R$ ${item.valor}</p>`;
+                caixaDespesas.innerHTML += `<p>${item.descricao} : ${item.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} <button onclick="deletarTransacao(${item.id})">❌</button></p>`;
             }
 });
             const caixaTotal = document.querySelector('.barra-total')
@@ -80,4 +80,16 @@ function carregarTransacoes(){
             caixaTotal.innerHTML = `<h2 style="color: ${corDaLetra}">Total Final: ${dados.saldo_atual.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</h2>`
         })
 }
+
 carregarTransacoes();
+
+function deletarTransacao(id){
+    fetch(`http://127.0.0.1:8000/transacoes/${id}`, {
+        method: "DELETE"
+    })
+    .then(resposta => resposta.json())
+    .then(dados => {
+        carregarTransacoes();
+    }
+    )
+}

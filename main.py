@@ -88,4 +88,13 @@ def criar_transacao(transacao: Transacao, db: Session = Depends (get_db)):
         "valor": nova_transacao.valor
     }
 
+@app.delete("/transacoes/{id_da_transacao}")
+def apagar_transacao(id_da_transacao: int, db: Session = Depends(get_db)):
+    transacao_encontrada = db.query(TransacaoDB).filter(TransacaoDB.id == id_da_transacao).first()
 
+    if transacao_encontrada:
+        db.delete(transacao_encontrada)
+        db.commit()
+        return{"mensagem": f"Transação {id_da_transacao} apagada com sucesso!"}
+    
+    return{"mensagem": "Transação não encontrada."}
